@@ -1,0 +1,35 @@
+version: '3'
+
+volumes:
+  db-data:
+
+services:
+  web:
+    build: .
+    # portsは -pの役割
+    ports:
+      - '3000:3000'
+    # volumesは -vの役割
+    volumes:
+      - '.:/product-register'
+    
+    # 環境変数に設定される
+    environment:
+      - 'DATABASE_PASSWORD=postgres'
+
+    # ttyは -itのtを意味してる
+    tty: true
+    # -iを意味してる
+    stdin_open: true
+    depends_on:
+      - db
+    links:
+      - db
+
+  db:
+    image: postgres
+    # environment:
+    #   - 'POSTGRES_USER=postgres'
+    #   - 'POSTGRES_PASSWORD=postgres'
+    volumes:
+      - 'db-data:/var/lib/postgresql/data'
