@@ -7,5 +7,5 @@ RUN apt-get update && apt-get install -y \
   yarn
 
 WORKDIR /product-register
-COPY Gemfile Gemfile.lock .
+COPY Gemfile Gemfile.lock ./
 RUN bundle install
